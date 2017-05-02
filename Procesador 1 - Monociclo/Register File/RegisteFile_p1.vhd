@@ -1,22 +1,22 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_arith.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
-entity RegisterFile_p2 is
+entity RegisteFile_p1 is
     Port ( rst : in  STD_LOGIC;
-           rs1 : in  STD_LOGIC_VECTOR (5 downto 0);
-           rs2 : in  STD_LOGIC_VECTOR (5 downto 0);
-           rd : in  STD_LOGIC_VECTOR (5 downto 0);
+           rs1 : in  STD_LOGIC_VECTOR (4 downto 0);
+           rs2 : in  STD_LOGIC_VECTOR (4 downto 0);
+           rd : in  STD_LOGIC_VECTOR (4 downto 0);
            salu : in  STD_LOGIC_VECTOR (31 downto 0);
-           crs1 : out STD_LOGIC_VECTOR (31 downto 0);
+           crs1 : out  STD_LOGIC_VECTOR (31 downto 0);
            crs2 : out  STD_LOGIC_VECTOR (31 downto 0));
-end RegisterFile_p2;
+end RegisteFile_p1;
 
-architecture Behavioral of RegisterFile_p2 is
+architecture Behavioral of RegisteFile_p1 is
 
 type ram is array (39 downto 0) of STD_LOGIC_VECTOR (31 downto 0);
 signal registros : ram := (others => "00000000000000000000000000000000");
-
 
 begin
 
@@ -28,7 +28,7 @@ begin
 			crs1 <= (others => '0');
 			crs2 <= (others => '0');
 		else
-			if (rd /= "000000") then
+			if (rd /= "00000") then
 				registros(conv_integer(rd)) <= salu;
 			end if;
 			crs1 <= registros(conv_integer(rs1));

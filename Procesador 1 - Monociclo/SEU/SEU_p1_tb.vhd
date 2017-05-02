@@ -1,17 +1,15 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
  
-ENTITY SEU_rs1_p2_tb IS
-END SEU_rs1_p2_tb;
+ENTITY SEU_p1_tb IS
+END SEU_p1_tb;
  
-ARCHITECTURE behavior OF SEU_rs1_p2_tb IS 
+ARCHITECTURE behavior OF SEU_p1_tb IS 
  
-    -- Component Declaration for the Unit Under Test (UUT)
- 
-    COMPONENT SEU_rs1_p2
+    COMPONENT SEU_p1
     PORT(
          rs1 : IN  std_logic_vector(12 downto 0);
-         crs1_SEU : OUT  std_logic_vector(31 downto 0)
+         es : OUT  std_logic_vector(31 downto 0)
         );
     END COMPONENT;
     
@@ -20,20 +18,23 @@ ARCHITECTURE behavior OF SEU_rs1_p2_tb IS
    signal rs1 : std_logic_vector(12 downto 0) := (others => '0');
 
  	--Outputs
-   signal crs1_SEU : std_logic_vector(31 downto 0);
+   signal es : std_logic_vector(31 downto 0);
+   -- No clocks detected in port list. Replace <clock> below with 
+   -- appropriate port name 
  
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
-   uut: SEU_rs1_p2 PORT MAP (
+   uut: SEU_p1 PORT MAP (
           rs1 => rs1,
-          crs1_SEU => crs1_SEU
+          es => es
         );
  
 
    -- Stimulus process
    stim_proc: process
    begin		
+	
       rs1 <= "0000000010100";
       wait for 100 ns;
 		rs1 <= "1111111110100";
@@ -49,8 +50,8 @@ BEGIN
 		rs1 <= "0001000010010";
       wait for 100 ns;
 		rs1 <= "1010000010110";
-      wait for 100 ns;	
-
+      wait for 100 ns;
+		
       wait;
    end process;
 
