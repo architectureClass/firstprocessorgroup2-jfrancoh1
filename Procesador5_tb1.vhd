@@ -1,17 +1,26 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
  
-ENTITY Procesador2_tb IS
-END Procesador2_tb;
+ENTITY Procesador5_tb1 IS
+END Procesador5_tb1;
  
-ARCHITECTURE behavior OF Procesador2_tb IS 
+ARCHITECTURE behavior OF Procesador5_tb1 IS 
  
-    COMPONENT Procesador2
+    -- Component Declaration for the Unit Under Test (UUT)
+ 
+    COMPONENT Procesador5
     PORT(
          rst : IN  std_logic;
          clk : IN  std_logic;
          cwpc : OUT  std_logic;
          ncwpc : OUT  std_logic;
+         op3 : OUT  std_logic_vector(5 downto 0);
+         rs1c : OUT  std_logic_vector(4 downto 0);
+         rs2c : OUT  std_logic_vector(4 downto 0);
+         rdc : OUT  std_logic_vector(4 downto 0);
+         nrs1c : OUT  std_logic_vector(5 downto 0);
+         nrs2c : OUT  std_logic_vector(5 downto 0);
+         nrdc : OUT  std_logic_vector(5 downto 0);
          nzvcc : OUT  std_logic_vector(3 downto 0);
          resultado : OUT  std_logic_vector(31 downto 0)
         );
@@ -25,6 +34,13 @@ ARCHITECTURE behavior OF Procesador2_tb IS
  	--Outputs
    signal cwpc : std_logic;
    signal ncwpc : std_logic;
+   signal op3 : std_logic_vector(5 downto 0);
+   signal rs1c : std_logic_vector(4 downto 0);
+   signal rs2c : std_logic_vector(4 downto 0);
+   signal rdc : std_logic_vector(4 downto 0);
+   signal nrs1c : std_logic_vector(5 downto 0);
+   signal nrs2c : std_logic_vector(5 downto 0);
+   signal nrdc : std_logic_vector(5 downto 0);
    signal nzvcc : std_logic_vector(3 downto 0);
    signal resultado : std_logic_vector(31 downto 0);
 
@@ -34,11 +50,18 @@ ARCHITECTURE behavior OF Procesador2_tb IS
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
-   uut: Procesador2 PORT MAP (
+   uut: Procesador5 PORT MAP (
           rst => rst,
           clk => clk,
           cwpc => cwpc,
           ncwpc => ncwpc,
+          op3 => op3,
+          rs1c => rs1c,
+          rs2c => rs2c,
+          rdc => rdc,
+          nrs1c => nrs1c,
+          nrs2c => nrs2c,
+          nrdc => nrdc,
           nzvcc => nzvcc,
           resultado => resultado
         );
@@ -57,13 +80,9 @@ BEGIN
    stim_proc: process
    begin		
       rst <= '1';
-      wait for 100 ns;	
-		rst <= '0';
       wait for 100 ns;
-      wait for clk_period*10;
-
-      -- insert stimulus here 
-
+		rst <= '0';
+      wait for 100 ns;		
       wait;
    end process;
 

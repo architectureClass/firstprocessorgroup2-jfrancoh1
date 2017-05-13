@@ -1,21 +1,22 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
  
-ENTITY PSR_p2_tb IS
-END PSR_p2_tb;
+ENTITY PSR_p3_tb IS
+END PSR_p3_tb;
  
-ARCHITECTURE behavior OF PSR_p2_tb IS 
+ARCHITECTURE behavior OF PSR_p3_tb IS 
  
     -- Component Declaration for the Unit Under Test (UUT)
  
-    COMPONENT PSR_p2
+    COMPONENT PSR_p3
     PORT(
          clk : IN  std_logic;
          rst : IN  std_logic;
-         nzvc : IN  std_logic_vector(3 downto 0);
          ncwp : IN  std_logic;
-         c : OUT  std_logic;
-         cwp : OUT  std_logic
+         nzvc : IN  std_logic_vector(3 downto 0);
+         cwp : OUT  std_logic;
+         icc : OUT  std_logic_vector(3 downto 0);
+         c : OUT  std_logic
         );
     END COMPONENT;
     
@@ -23,12 +24,13 @@ ARCHITECTURE behavior OF PSR_p2_tb IS
    --Inputs
    signal clk : std_logic := '0';
    signal rst : std_logic := '0';
-   signal nzvc : std_logic_vector(3 downto 0) := (others => '0');
    signal ncwp : std_logic := '0';
+   signal nzvc : std_logic_vector(3 downto 0) := (others => '0');
 
  	--Outputs
-   signal c : std_logic;
    signal cwp : std_logic;
+   signal icc : std_logic_vector(3 downto 0);
+   signal c : std_logic;
 
    -- Clock period definitions
    constant clk_period : time := 10 ns;
@@ -36,13 +38,14 @@ ARCHITECTURE behavior OF PSR_p2_tb IS
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
-   uut: PSR_p2 PORT MAP (
+   uut: PSR_p3 PORT MAP (
           clk => clk,
           rst => rst,
-          nzvc => nzvc,
           ncwp => ncwp,
-          c => c,
-          cwp => cwp
+          nzvc => nzvc,
+          cwp => cwp,
+          icc => icc,
+          c => c
         );
 
    -- Clock process definitions
@@ -90,15 +93,6 @@ BEGIN
 		ncwp <= '1';
 		nzvc <= "0001";
       wait for 100 ns;
-		
-		
-		
-
-      wait for clk_period*10;
-
-      -- insert stimulus here 
-
-      wait;
    end process;
 
 END;

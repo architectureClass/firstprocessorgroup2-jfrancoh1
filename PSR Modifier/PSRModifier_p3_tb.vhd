@@ -1,17 +1,19 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
  
-ENTITY PSRModifier_p2_tb IS
-END PSRModifier_p2_tb;
+ENTITY PSRModifier_p3_tb IS
+END PSRModifier_p3_tb;
  
-ARCHITECTURE behavior OF PSRModifier_p2_tb IS 
+ARCHITECTURE behavior OF PSRModifier_p3_tb IS 
  
-    COMPONENT PSRModifier_p2
+    -- Component Declaration for the Unit Under Test (UUT)
+ 
+    COMPONENT PSRModifier_p3
     PORT(
          rst : IN  std_logic;
+         aluop : IN  std_logic_vector(5 downto 0);
          crs1 : IN  std_logic_vector(31 downto 0);
          crs2alu : IN  std_logic_vector(31 downto 0);
-         aluop : IN  std_logic_vector(5 downto 0);
          salu : IN  std_logic_vector(31 downto 0);
          nzvc : OUT  std_logic_vector(3 downto 0)
         );
@@ -20,24 +22,28 @@ ARCHITECTURE behavior OF PSRModifier_p2_tb IS
 
    --Inputs
    signal rst : std_logic := '0';
+   signal aluop : std_logic_vector(5 downto 0) := (others => '0');
    signal crs1 : std_logic_vector(31 downto 0) := (others => '0');
    signal crs2alu : std_logic_vector(31 downto 0) := (others => '0');
-   signal aluop : std_logic_vector(5 downto 0) := (others => '0');
    signal salu : std_logic_vector(31 downto 0) := (others => '0');
 
  	--Outputs
    signal nzvc : std_logic_vector(3 downto 0);
  
 BEGIN
-   uut: PSRModifier_p2 PORT MAP (
+ 
+	-- Instantiate the Unit Under Test (UUT)
+   uut: PSRModifier_p3 PORT MAP (
           rst => rst,
+          aluop => aluop,
           crs1 => crs1,
           crs2alu => crs2alu,
-          aluop => aluop,
           salu => salu,
           nzvc => nzvc
         );
-		  
+ 
+
+   -- Stimulus process
    stim_proc: process
    begin		
       rst <= '0';

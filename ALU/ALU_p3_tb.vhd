@@ -1,11 +1,14 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
-ENTITY ALU_p2_tb IS
-END ALU_p2_tb;
  
-ARCHITECTURE behavior OF ALU_p2_tb IS 
+ENTITY ALU_p3_tb IS
+END ALU_p3_tb;
  
-    COMPONENT ALU_p2
+ARCHITECTURE behavior OF ALU_p3_tb IS 
+ 
+    -- Component Declaration for the Unit Under Test (UUT)
+ 
+    COMPONENT ALU_p3
     PORT(
          opalu : IN  std_logic_vector(5 downto 0);
          crs1 : IN  std_logic_vector(31 downto 0);
@@ -24,23 +27,22 @@ ARCHITECTURE behavior OF ALU_p2_tb IS
 
  	--Outputs
    signal salu : std_logic_vector(31 downto 0);
-   -- No clocks detected in port list. Replace <clock> below with 
-   -- appropriate port name 
  
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
-   uut: ALU_p2 PORT MAP (
+   uut: ALU_p3 PORT MAP (
           opalu => opalu,
           crs1 => crs1,
           crs2 => crs2,
           carry => carry,
           salu => salu
         );
+ 
 
    -- Stimulus process
    stim_proc: process
-   begin		
+   begin				
       opalu <= "000000";  -- ADD
 		carry <= '0';
 		crs1 <= "00000000000000000000000000000000"; 
@@ -130,15 +132,8 @@ BEGIN
 		carry <= '1';
 		crs1 <= "00000000000000000000000000001100";
 		crs2 <= "00000000000000000000000000000010";
-		wait for 100 ns;	
-		
-		
-		
-		
-
-		
-
-      wait;
+		wait for 100 ns;
+     
    end process;
 
 END;

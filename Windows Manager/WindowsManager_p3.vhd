@@ -3,9 +3,8 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 use IEEE.STD_LOGIC_ARITH.ALL;
 
-
-entity WindowsManager_p2 is
-    Port ( op : in  STD_LOGIC_VECTOR (1 downto 0);
+entity WindowsManager_p3 is
+	Port ( op : in  STD_LOGIC_VECTOR (1 downto 0);
            op3 : in  STD_LOGIC_VECTOR (5 downto 0);
            rd : in  STD_LOGIC_VECTOR (4 downto 0);
            rs1 : in  STD_LOGIC_VECTOR (4 downto 0);
@@ -14,16 +13,20 @@ entity WindowsManager_p2 is
            nrd : out  STD_LOGIC_VECTOR (5 downto 0);
            nrs1 : out  STD_LOGIC_VECTOR (5 downto 0);
            nrs2 : out  STD_LOGIC_VECTOR (5 downto 0);
-           ncwp : out  STD_LOGIC);
-end WindowsManager_p2;
+           ncwp : out  STD_LOGIC;
+			  r7 : out STD_LOGIC_VECTOR (5 downto 0)
+			);
+end WindowsManager_p3;
 
-architecture Behavioral of WindowsManager_p2 is
+architecture Behavioral of WindowsManager_p3 is
 
-signal Rs1Integer,Rs2Integer,RdInteger: integer range 0 to 39:=0;
+signal Rs1Integer,Rs2Integer,RdInteger, RegistroO7: integer range 0 to 39:=0;
 signal ncwp_signal: STD_LOGIC;
+signal r7aux : STD_LOGIC_VECTOR(5 downto 0) := "001111";
+-- signal RegistroO7 : std_logic_vector(6 downto 0);
 
 begin
-
+RegistroO7 <= conv_integer(r7aux) + (conv_integer(cwp)*16);
 process(cwp,op,op3,rs1,rs2,rd,ncwp_signal)
 	begin
 		if(op = "10") then
@@ -68,11 +71,12 @@ process(cwp,op,op3,rs1,rs2,rd,ncwp_signal)
 				RdInteger <= conv_integer(rd);
 		end if;
 			
-	end process;
-	nrs1 <= conv_std_logic_vector(Rs1Integer, 6);
-	nrs2 <= conv_std_logic_vector(Rs2Integer, 6);
-	nrd <= conv_std_logic_vector(RdInteger, 6);
-	ncwp <= ncwp_signal;
-		
+end process;
+nrs1 <= conv_std_logic_vector(Rs1Integer, 6);
+nrs2 <= conv_std_logic_vector(Rs2Integer, 6);
+nrd <= conv_std_logic_vector(RdInteger, 6);
+r7 <= conv_std_logic_vector(RegistroO7, 6);
+ncwp <= ncwp_signal;
+	
 end Behavioral;
 

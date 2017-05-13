@@ -2,15 +2,15 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_signed.ALL;
 
-entity ALU_p2 is
-    Port ( opalu : in  STD_LOGIC_VECTOR (5 downto 0);
+entity ALU_p3 is
+	 Port ( opalu : in  STD_LOGIC_VECTOR (5 downto 0);
            crs1 : in  STD_LOGIC_VECTOR (31 downto 0);
            crs2 : in  STD_LOGIC_VECTOR (31 downto 0);
            carry : in  STD_LOGIC;
            salu : out  STD_LOGIC_VECTOR (31 downto 0));
-end ALU_p2;
+end ALU_p3;
 
-architecture Behavioral of ALU_p2 is
+architecture Behavioral of ALU_p3 is
 
 begin
 
@@ -37,12 +37,11 @@ begin
 		when "010011" => salu <= crs1 xor crs2; -- XORcc
 		when "000111" => salu <= crs1 xnor crs2; -- XNOR
 		when "010111" => salu <= crs1 xnor crs2; -- XNORcc
-		when "100101" => salu <= to_stdlogicvector(to_bitvector(crs1) SLL conv_integer(crs2));
-		when "100110" => salu <= to_stdlogicvector(to_bitvector(crs1) SRL conv_integer(crs2));
+		when "100101" => salu <= to_stdlogicvector(to_bitvector(crs1) SLL conv_integer(crs2)); -- SLL
+		when "100110" => salu <= to_stdlogicvector(to_bitvector(crs1) SRL conv_integer(crs2)); -- SRL
 		when others => salu <= "00000000000000000000000000000000";
 	end case;
 end process;
-
 
 end Behavioral;
 

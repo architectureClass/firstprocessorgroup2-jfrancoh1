@@ -1,16 +1,16 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
  
-ENTITY ProgramCounter_p1_tb IS
-END ProgramCounter_p1_tb;
+ENTITY ProgramCounter_p3_tb IS
+END ProgramCounter_p3_tb;
  
-ARCHITECTURE behavior OF ProgramCounter_p1_tb IS 
+ARCHITECTURE behavior OF ProgramCounter_p3_tb IS 
  
-    COMPONENT ProgramCounter_p1
+    COMPONENT ProgramCounter_p3
     PORT(
          clk : IN  std_logic;
          rst : IN  std_logic;
-         pc : IN  std_logic_vector(31 downto 0);
+         pcin : IN  std_logic_vector(31 downto 0);
          pcout : OUT  std_logic_vector(31 downto 0)
         );
     END COMPONENT;
@@ -19,7 +19,7 @@ ARCHITECTURE behavior OF ProgramCounter_p1_tb IS
    --Inputs
    signal clk : std_logic := '0';
    signal rst : std_logic := '0';
-   signal pc : std_logic_vector(31 downto 0) := (others => '0');
+   signal pcin : std_logic_vector(31 downto 0) := (others => '0');
 
  	--Outputs
    signal pcout : std_logic_vector(31 downto 0);
@@ -30,10 +30,10 @@ ARCHITECTURE behavior OF ProgramCounter_p1_tb IS
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
-   uut: ProgramCounter_p1 PORT MAP (
+   uut: ProgramCounter_p3 PORT MAP (
           clk => clk,
           rst => rst,
-          pc => pc,
+          pcin => pcin,
           pcout => pcout
         );
 
@@ -51,25 +51,25 @@ BEGIN
    stim_proc: process
    begin		
       rst <= '0';
-		pc <= "00000000000000000000000000000000";
+		pcin <= "00000000000000000000000000000000";
       wait for 20 ns;	
 		rst <= '0';
-		pc <= "00000000000000000000000000000100";
+		pcin <= "00000000000000000000000000000100";
       wait for 20 ns;	
 		rst <= '0';
-		pc <= "00000000000000000000000000100100";
+		pcin <= "00000000000000000000000000100100";
       wait for 20 ns;
 		rst <= '1';
-		pc <= "00000000000000000000000000000111";
+		pcin <= "00000000000000000000000000000111";
       wait for 20 ns;		
 		rst <= '0';
-		pc <= "00000000000000000000000000000001";
+		pcin <= "00000000000000000000000000000001";
       wait for 20 ns;	
 		rst <= '0';
-		pc <= "00000000000000000000000000000111";
+		pcin <= "00000000000000000000000000000111";
       wait for 20 ns;	
 		rst <= '0';
-		pc <= "00000000000000000000000000010010";
+		pcin <= "00000000000000000000000000010010";
       wait for 20 ns;	
       wait for clk_period*5;
       wait;

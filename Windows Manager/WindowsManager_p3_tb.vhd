@@ -1,12 +1,14 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
  
-ENTITY WindowsManager_p2_tb IS
-END WindowsManager_p2_tb;
+ENTITY WindowsManager_p3_tb IS
+END WindowsManager_p3_tb;
  
-ARCHITECTURE behavior OF WindowsManager_p2_tb IS 
+ARCHITECTURE behavior OF WindowsManager_p3_tb IS 
  
-    COMPONENT WindowsManager_p2
+    -- Component Declaration for the Unit Under Test (UUT)
+ 
+    COMPONENT WindowsManager_p3
     PORT(
          op : IN  std_logic_vector(1 downto 0);
          op3 : IN  std_logic_vector(5 downto 0);
@@ -17,7 +19,8 @@ ARCHITECTURE behavior OF WindowsManager_p2_tb IS
          nrd : OUT  std_logic_vector(5 downto 0);
          nrs1 : OUT  std_logic_vector(5 downto 0);
          nrs2 : OUT  std_logic_vector(5 downto 0);
-         ncwp : OUT  std_logic
+         ncwp : OUT  std_logic;
+         r7 : OUT  std_logic_vector(5 downto 0)
         );
     END COMPONENT;
     
@@ -35,11 +38,12 @@ ARCHITECTURE behavior OF WindowsManager_p2_tb IS
    signal nrs1 : std_logic_vector(5 downto 0);
    signal nrs2 : std_logic_vector(5 downto 0);
    signal ncwp : std_logic;
- 
+   signal r7 : std_logic_vector(5 downto 0);
+	
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
-   uut: WindowsManager_p2 PORT MAP (
+   uut: WindowsManager_p3 PORT MAP (
           op => op,
           op3 => op3,
           rd => rd,
@@ -49,7 +53,8 @@ BEGIN
           nrd => nrd,
           nrs1 => nrs1,
           nrs2 => nrs2,
-          ncwp => ncwp
+          ncwp => ncwp,
+          r7 => r7
         );
  
 
